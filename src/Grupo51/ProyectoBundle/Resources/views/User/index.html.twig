@@ -1,0 +1,32 @@
+{% extends 'Grupo51ProyectoBundle:LoggedUser:home.html.twig' %}
+
+{% block content %}
+    <h3>Gestión de Usuarios</h3>
+
+    <table class="table table-centered">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Lastlogin</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><b>{{ entity.username }}</b></td>
+                <td>{{ entity.email }}</td>
+                <td>{% if entity.lastLogin %}{{ entity.lastLogin|date('Y-m-d H:i:s') }}{% endif %}</td> 
+                <td>
+                        <a href="{{ path('user_show', { 'id': entity.id }) }}"><span class="label label-info">Show</span></a>
+                        <a href="{{ path('user_edit', { 'id': entity.id }) }}"><span class="label label-info">Edit</span></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+            <a href="{{ path('fos_user_registration_register') }}">
+                           <span class="label label-info"> Create new user </span>
+            </a>
+    {% endblock %}
